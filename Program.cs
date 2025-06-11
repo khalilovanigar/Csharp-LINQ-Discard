@@ -1,13 +1,28 @@
-﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Immutable;
+using System.Diagnostics;
+using System.Runtime.ConstrainedExecution;
+public static class Extention
+{
+    public static void PrintExtention<T>(this IEnumerable<T> collection)
+    {
+        foreach (var item in collection)
+        {
+            System.Console.WriteLine(item);
+        }
+    }
+}
 
 
 
-class Program {
-    class Debtor {
-        public Debtor(string fullname, DateTime birthDay, string phone, string email, string address, int debt) {
+class Program
+{
+    class Debtor
+    {
+        public Debtor(string fullname, DateTime birthDay, string phone, string email, string address, int debt)
+        {
             this.FullName = fullname;
             this.BirthDay = birthDay;
             this.Phone = phone;
@@ -22,12 +37,13 @@ class Program {
         public string Email { get; set; }
         public string Address { get; set; }
         public int Debt { get; set; }
-        public override string ToString() {
-            return $"{this.FullName} {this.BirthDay.ToShortDateString()} {this.Phone} {this.Email} {this.Address} {this.Debt}";
+        public override string ToString()
+        {
+            return $"{this.FullName} {","} {this.BirthDay.ToShortDateString()} {","} {this.Phone} {","} {this.Email} {","} {this.Address} {","} {this.Debt}";
         }
     }
+            static List<Debtor> debtors = new List<Debtor> {
 
-    List<Debtor> debtors = new List<Debtor> {
             new Debtor("Shirley T. Qualls", DateTime.Parse("March 30, 1932"), "530-662-7732", "ShirleyTQualls@teleworm.us", "3565 Eagles Nest Drive Woodland, CA 95695", 2414),
             new Debtor("Danielle W. Grier", DateTime.Parse("October 18, 1953"), "321-473-4178", "DanielleWGrier@rhyta.com", "1973 Stoneybrook Road Maitland, FL 32751", 3599),
             new Debtor("Connie W. Lemire", DateTime.Parse("June 18, 1963"), "828-321-3751", "ConnieWLemire@rhyta.com", "2432 Hannah Street Andrews, NC 28901", 1219),
@@ -78,52 +94,146 @@ class Program {
 
 
 
-    static void Main() {
+    static void Main()
+    {
 
-    //     2) rhyta.com ve ya dayrep.com domenlerinde emaili olan borclulari cixartmag
+        //  2) rhyta.com ve ya dayrep.com domenlerinde emaili olan borclulari cixartmag
 
+        //debtors.FindAll(x => x.Email.EndsWith ("rhyta.com") || x.Email.EndsWith ("dayrep.com")).PrintExtention();
 
-    // 3) Yashi 26 - dan 36 - ya qeder olan borclulari cixartmag
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        // 	3) Yashi 26-dan 36-ya qeder olan borclulari cixartmag
 
-    // 4) Borcu 5000 - den cox olmayan borclularic cixartmag
-
-
-    // 5) Butov adi 18 simvoldan cox olan ve telefon nomresinde 2 ve ya 2 - den cox 7 reqemi olan borclulari cixartmaq
-
-
-    // 7) Qishda anadan olan borclulari cixardmaq
-
-
-    // 8) Borcu, umumi borclarin orta borcunnan cox olan borclulari cixarmaq ve evvel familyaya gore sonra ise meblegin azalmagina gore sortirovka etmek
+        // debtors.FindAll(x =>
+        // {
+        //     int age = DateTime.Today.Year - x.BirthDay.Year;
+        //     return age > 26 && age < 36;
+        // }).PrintExtention();
 
 
-    // 9) Telefon nomresinde 8 olmayan borclularin yalniz familyasin, yashin ve umumi borcun meblegin cixarmaq
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	4) Borcu 5000-den cox olmayan borclularic cixartmag
+
+        //debtors.FindAll(x => x.Debt < 5000).PrintExtention();
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	5) Butov adi 18 simvoldan cox olan ve telefon nomresinde 2 ve ya 2-den cox 7 reqemi olan borclulari cixartmaq
 
 
-    // 11)Adinda ve familyasinda hec olmasa 3 eyni herf olan borclularin siyahisin cixarmaq ve onlari elifba sirasina gore sortirovka elemek
+        // for (int i = 0; i < debtors.Count; i++)
+        // {
+        //     var debtor = debtors[i];
+        //     if (debtor.FullName.Length > 18 && debtor.Phone.Count(x => x == '7') >= 2)
+        //     {
+        //         System.Console.WriteLine(debtor);
+        //     }
+        // }
+
+        //System.Console.WriteLine(debtors.Max(x=>x.FullName));
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	7) Qishda anadan olan borclulari cixardmaq 
+
+        // debtors.FindAll(x =>
+        // x.BirthDay.Month == 1 ||
+        // x.BirthDay.Month == 2 ||
+        // x.BirthDay.Month == 12
+        // ).PrintExtention();
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	8) Borcu, umumi borclarin orta borcunnan cox olan borclulari cixarmaq ve evvel familyaya gore sonra ise meblegin azalmagina gore sortirovka etmek
+
+        // double avaragedebt = debtors.Average(x => x.Debt);
+        // System.Console.WriteLine($@"Avarage debt: {avaragedebt}");
+        // System.Console.WriteLine();
+
+        // var selecteddebtors = debtors
+        // .FindAll(x => x.Debt > avaragedebt)
+        // .OrderBy(x => x.FullName.Split(' ')[^1])
+        // .OrderByDescending(x => x.Debt)
+        // .ToList();
+
+        // selecteddebtors.PrintExtention();
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	9) Telefon nomresinde 8 olmayan borclularin yalniz familyasin,yashin ve umumi borcun meblegin cixarmaq
+
+        // for (int i = 0; i < debtors.Count; i++)
+        // {
+        //     var debtor = debtors[i];
+        //     if (!debtor.Phone.Contains('8'))
+        //     {
+        //         string SurName = debtor.FullName.Split(' ').Last();
+        //         int age = DateTime.Now.Year - debtor.BirthDay.Year;
+        //         System.Console.WriteLine($@"Debtor Surname: {SurName} , Debtor age: {age} , Debt: {debtor.Debt}");
+        //     }
+
+        // }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	11)Adinda ve familyasinda hec olmasa 3 eyni herf olan borclularin siyahisin cixarmaq ve onlari elifba sirasina gore sortirovka elemek
 
 
-    // 13)borclulardan en coxu hansi ilde dogulubsa hemin ili cixartmaq
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	13)borclulardan en coxu hansi ilde dogulubsa hemin ili cixartmaq
 
 
-    // 14)Borcu en boyuk olan 5 borclunun siyahisini cixartmaq
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	14)Borcu en boyuk olan 5 borclunun siyahisini cixartmaq
+
+        // debtors.OrderByDescending(x => x.Debt)
+        // .Take(5)
+        // .PrintExtention();
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	15)Butun borcu olanlarin borcunu cemleyib umumi borcu cixartmaq
+
+        // System.Console.Write("All debt: ");
+        // System.Console.WriteLine(debtors.Sum(x => x.Debt));
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	16)2ci dunya muharibesin gormush borclularin siyahisi cixartmaq
+
+        // DateTime dt1 = new DateTime(1939, 9, 1);
+        // DateTime dt2 = new DateTime(1945, 9, 2);  
+
+        // for (int i = 0; i < debtors.Count; i++)
+        // {
+        //     var debtor = debtors[i];
+        //     if (debtor.BirthDay >= dt1 && debtor.BirthDay <= dt2)
+        //     {
+        //         System.Console.WriteLine(debtor);
+        //     }
+        // }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	18)Nomresinde tekrar reqemler olmayan borclularin ve onlarin borcunun meblegin cixartmaq
 
 
-    // 15)Butun borcu olanlarin borcunu cemleyib umumi borcu cixartmaq
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	19)Tesevvur edek ki,butun borclari olanlar bugunden etibaren her ay 500 azn pul odeyecekler. Oz ad gunune kimi borcun oduyub qurtara bilenlerin siyahisin cixartmaq
 
 
-    // 16)2ci dunya muharibesin gormush borclularin siyahisi cixartmaq
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 	20)Adindaki ve familyasindaki herflerden "smile" sozunu yaza bileceyimiz borclularin siyahisini cixartmaq
 
 
-    // 18)Nomresinde tekrar reqemler olmayan borclularin ve onlarin borcunun meblegin cixartmaq
-
-
-    // 19)Tesevvur edek ki,butun borclari olanlar bugunden etibaren her ay 500 azn pul odeyecekler.Oz ad gunune kimi borcun oduyub qurtara bilenlerin siyahisin cixartmaq
-
-
-    // 20)Adindaki ve familyasindaki herflerden "smile" sozunu yaza bileceyimiz borclularin siyahisini cixartmaq
-    
 
     }
 }
