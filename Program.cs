@@ -178,16 +178,17 @@ class Program
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // 	11)Adinda ve familyasinda hec olmasa 3 eyni herf olan borclularin siyahisin cixarmaq ve onlari elifba sirasina gore sortirovka elemek
-
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         // 	13)borclulardan en coxu hansi ilde dogulubsa hemin ili cixartmaq
 
-
-
+        // var result = debtors
+        //     .GroupBy(d => d.BirthDay.Year)
+        //     .OrderByDescending(g => g.Count())
+        //     .First();
+        // System.Console.Write("Year of most debtors: ");
+        // System.Console.WriteLine(result.Key);
+        // System.Console.Write("Count of debtors: ");
+        // System.Console.WriteLine(result.Count());
+        
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // 	14)Borcu en boyuk olan 5 borclunun siyahisini cixartmaq
@@ -223,16 +224,55 @@ class Program
 
         // 	18)Nomresinde tekrar reqemler olmayan borclularin ve onlarin borcunun meblegin cixartmaq
 
+        // foreach (var debtor in debtors)
+        // {
+        //     string digits = new string(debtor.Phone.Where(char.IsDigit).ToArray());
+        //     if (digits.Distinct().Count() == digits.Length)
+        //     {
+        //         System.Console.WriteLine(debtor.FullName);
+        //         System.Console.WriteLine(debtor.Debt);
+        //         System.Console.WriteLine();
+        //     }
+        // }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // 	19)Tesevvur edek ki,butun borclari olanlar bugunden etibaren her ay 500 azn pul odeyecekler. Oz ad gunune kimi borcun oduyub qurtara bilenlerin siyahisin cixartmaq
+
+        //         DateTime today = DateTime.Today;
+        //         foreach (var debtor in debtors)
+        //         {
+        //             DateTime nextBirthday = new DateTime(today.Year, debtor.BirthDay.Month, debtor.BirthDay.Day);
+        //             if (nextBirthday < today)
+        //                 nextBirthday = nextBirthday.AddYears(1);
+
+        //             int monthsUntilBirthday = ((nextBirthday.Year - today.Year) * 12 + nextBirthday.Month - today.Month);
+        //             if (nextBirthday.Day < today.Day)
+        //                 monthsUntilBirthday--;
+        //             int Payment = monthsUntilBirthday * 500;
+        //             if (Payment >= debtor.Debt)
+        //             {
+        //                 System.Console.WriteLine(@$"
+        // {debtor.FullName} 
+        // Debt: {debtor.Debt} 
+        // Months until birthday: {monthsUntilBirthday}");
+        // System.Console.WriteLine();
+        //             }
+        //         }
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // 	20)Adindaki ve familyasindaki herflerden "smile" sozunu yaza bileceyimiz borclularin siyahisini cixartmaq
 
+        // foreach (var debtor in debtors)
+        // {
+        //     string name = debtor.FullName.ToLower();
+        //     if (name.Contains('s') && name.Contains('m') && name.Contains('i') && name.Contains('l') && name.Contains('e'))
+        //     {
+        //         System.Console.WriteLine(debtor);
+        //     }
+        // }
 
 
     }
